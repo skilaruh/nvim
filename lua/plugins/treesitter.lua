@@ -30,6 +30,7 @@ local languages = {
     "rust",
     "r",
     "rasi",
+    "regex",
     "sql",
     "toml",
     "typescript",
