@@ -53,6 +53,32 @@ vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous Buffer" })
 vim.keymap.set("n", "<leader>lps", ":LivePreview start<CR>", { desc = "Being Browser Preview" })
 vim.keymap.set("n", "<leader>lpc", ":LivePreview close<CR>", { desc = "Close Browser Preview" })
 
+-- Code Runner
+-- Create an autocmd group for executing files
+local run_group = vim.api.nvim_create_augroup("RunMyCode", { clear = true })
+local function CodeRunner(filetype, command)
+    vim.api.nvim_create_autocmd("FileType", {
+        group = run_group,
+        pattern = filetype,
+        callback = function(args)
+            vim.keymap.set(
+                "n",
+                "<leader>rc",
+                ":w<CR>:botright split term://" .. command .. "<CR>:resize 10<CR>:startinsert<CR>",
+                { buffer = args.buf, desc = "Execute File", silent = true }
+            )
+        end,
+    })
+end
+
+-- Define the commands for each filetype
+CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -std=c23 -o %:t:r *.c && ./%:t:r")
+CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -std=c++23 -o %:t:r *.cpp && ./%:t:r")
+CodeRunner("javascript", "cd %:p:h && node %:t")
+CodeRunner("lua", "cd %:p:h && lua %:t")
+CodeRunner("python", "cd %:p:h && python3 %:t")
+CodeRunner("sh", "cd %:p:h && bash %:t")
+
 
 -- Loading Lazy
 require("config.lazy")
