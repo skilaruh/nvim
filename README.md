@@ -12,6 +12,6 @@ git clone git@github.com:skilaruh/nvim.git ~/.config/nvim
 ```{bash}
 rm -rf ~/.config/nvim
 rm -rf ~/.local/state/nvim
-rm -rf ~/.local/share/nvim```
+rm -rf ~/.local/share/nvim
 ```
 
