@@ -63,7 +63,7 @@ local function CodeRunner(filetype, command)
         callback = function(args)
             vim.keymap.set(
                 "n",
-                "<leader>rc",
+                "<leader>R",
                 ":w<CR>:botright split term://" .. command .. "<CR>:resize 10<CR>:startinsert<CR>",
                 { buffer = args.buf, desc = "Execute File", silent = true }
             )
@@ -85,3 +85,4 @@ require("config.lazy")
 
 -- Loading LSP servers
 vim.lsp.enable({ "clangd", "gopls", "lua_ls", "ruff" })
+

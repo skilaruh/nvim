@@ -7,7 +7,7 @@
   "lualine.nvim": { "branch": "master", "commit": "47f91c416daef12db467145e16bed5bbfe00add8" },
   "nvim-autopairs": { "branch": "master", "commit": "7a2c97cccd60abc559344042fefb1d5a85b3e33b" },
   "nvim-lspconfig": { "branch": "master", "commit": "7757d54716b26280b1b1785d89364a016a29c445" },
-  "nvim-treesitter": { "branch": "main", "commit": "857fb97bb65c8a71b0c4a568cfcfef95679854d5" },
+  "nvim-treesitter": { "branch": "main", "commit": "75797cdd8ac125c7ace065b17788b439dcf89a71" },
   "nvim-web-devicons": { "branch": "master", "commit": "8dcb311b0c92d460fac00eac706abd43d94d68af" },
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
   "vague.nvim": { "branch": "main", "commit": "dba28050887c2810b5ebf9e0143b4e919bd55757" },
