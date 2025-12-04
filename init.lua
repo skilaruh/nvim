@@ -72,8 +72,8 @@ local function CodeRunner(filetype, command)
 end
 
 -- Define the commands for each filetype
-CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -std=c23 -o %:t:r *.c && ./%:t:r")
-CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -std=c++23 -o %:t:r *.cpp && ./%:t:r")
+CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -Werror -std=c23 -o %:t:r *.c && ./%:t:r")
+CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -Werror -std=c++23 -o %:t:r *.cpp && ./%:t:r")
 CodeRunner("javascript", "cd %:p:h && node %:t")
 CodeRunner("lua", "cd %:p:h && lua %:t")
 CodeRunner("python", "cd %:p:h && python3 %:t")
