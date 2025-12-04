@@ -32,7 +32,7 @@ vim.opt.clipboard:append 'unnamedplus'
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Add new line to the end of the file
+-- Add blank line to the end of the file
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = vim.api.nvim_create_augroup('UserOnSave', {}),
     pattern = '*',
