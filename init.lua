@@ -27,12 +27,12 @@ vim.o.cmdheight = 0
 
 vim.opt.winborder = "rounded"
 
-vim.opt.clipboard:append 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.opt.fillchars = { eob = " "} --remove tilda to show end of file
+vim.opt.fillchars = { eob = " " } --remove tilda to show end of file
 
 -- Add blank line to the end of the file
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -74,8 +74,8 @@ local function CodeRunner(filetype, command)
 end
 
 -- Define the commands for each filetype
-CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -Werror -std=c23 -o %:t:r *.c && ./%:t:r")
-CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -Werror -std=c++23 -o %:t:r *.cpp && ./%:t:r")
+CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -Werror -std=c23 -o %:t:r %:t && ./%:t:r")
+CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -Werror -std=c++23 -o %:t:r %:t && ./%:t:r")
 CodeRunner("javascript", "cd %:p:h && node %:t")
 CodeRunner("lua", "cd %:p:h && lua %:t")
 CodeRunner("python", "cd %:p:h && python3 %:t")
@@ -87,4 +87,3 @@ require("config.lazy")
 
 -- Loading LSP servers
 vim.lsp.enable({ "clangd", "gopls", "lua_ls", "ruff" })
-
