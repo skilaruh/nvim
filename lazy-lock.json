@@ -6,10 +6,10 @@
   "live-preview.nvim": { "branch": "main", "commit": "4bbcbe79948b2726f00b5217277abd1e2651e699" },
   "lualine.nvim": { "branch": "master", "commit": "47f91c416daef12db467145e16bed5bbfe00add8" },
   "nvim-autopairs": { "branch": "master", "commit": "59bce2eef357189c3305e25bc6dd2d138c1683f5" },
-  "nvim-lspconfig": { "branch": "master", "commit": "f2193125da0bff2e4eae8e0a45e343ec9bca4c72" },
-  "nvim-treesitter": { "branch": "main", "commit": "ae2081cfcd3719d74b600f8377e4a99d1ec19c4a" },
+  "nvim-lspconfig": { "branch": "master", "commit": "ead0f5f342d8d323441e7d4b88f0fc436a81ad5f" },
+  "nvim-treesitter": { "branch": "main", "commit": "cb2cb74f3c3cbbcc17e79cada2060165d616d849" },
   "nvim-web-devicons": { "branch": "master", "commit": "737cf6c657898d0c697311d79d361288a1343d50" },
-  "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
+  "snacks.nvim": { "branch": "main", "commit": "9912042fc8bca2209105526ac7534e9a0c2071b2" },
   "vague.nvim": { "branch": "main", "commit": "4abd79d6fbaca57bf437763d0b5bed364e4512bd" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
