@@ -1,4 +1,7 @@
 -- Basic Settings
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.o.number = true
 vim.o.relativenumber = true
 
@@ -25,64 +28,31 @@ vim.o.scrolloff = 8
 
 vim.o.cmdheight = 0
 
-vim.opt.winborder = "rounded"
+vim.o.winborder = "rounded"
 
-vim.opt.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamedplus"
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.o.showtabline = 0
 
 vim.opt.fillchars = { eob = " " } --remove tilda to show end of file
 
--- Add blank line to the end of the file
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = vim.api.nvim_create_augroup('UserOnSave', {}),
-    pattern = '*',
-    callback = function()
-        local n_lines = vim.api.nvim_buf_line_count(0)
-        local last_nonblank = vim.fn.prevnonblank(n_lines)
-        if last_nonblank <= n_lines then
-            vim.api.nvim_buf_set_lines(0,
-                last_nonblank, n_lines, true, { '' })
-        end
-    end,
-})
+-- Imports
+require("pack")
 
--- Keybindings
+-- Theme
+vim.cmd.colorscheme('vague')
+
+-- Vim Core UI 2 Enable
+require("vim._core.ui2").enable({})
+
+--- Keybinds
+vim.keymap.set("n", "<leader>nr", "<cmd>restart<cr>", {
+    desc = "Restart Neovim (:restart)",
+})
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
 vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous Buffer" })
-vim.keymap.set("n", "<leader>lps", ":LivePreview start<CR>", { desc = "Being Browser Preview" })
-vim.keymap.set("n", "<leader>lpc", ":LivePreview close<CR>", { desc = "Close Browser Preview" })
-
--- Code Runner
--- Create an autocmd group for executing files
-local run_group = vim.api.nvim_create_augroup("RunMyCode", { clear = true })
-local function CodeRunner(filetype, command)
-    vim.api.nvim_create_autocmd("FileType", {
-        group = run_group,
-        pattern = filetype,
-        callback = function(args)
-            vim.keymap.set(
-                "n",
-                "<leader>R",
-                ":w<CR>:botright split term://" .. command .. "<CR>:resize 10<CR>:startinsert<CR>",
-                { buffer = args.buf, desc = "Execute File", silent = true }
-            )
-        end,
-    })
-end
-
-CodeRunner("c", "cd %:p:h && clang -pedantic-errors -Wall -Wextra -Werror -std=c23 -o %:t:r %:t && ./%:t:r")
-CodeRunner("cpp", "cd %:p:h && clang++ -pedantic-errors -Wall -Wextra -Werror -std=c++23 -o %:t:r %:t && ./%:t:r")
-CodeRunner("javascript", "cd %:p:h && node %:t")
-CodeRunner("lua", "cd %:p:h && lua %:t")
-CodeRunner("python", "cd %:p:h && python3 %:t")
-CodeRunner("sh", "cd %:p:h && bash %:t")
-
-
--- Loading Lazy
-require("config.lazy")
-
--- Loading LSP servers
-vim.lsp.enable({ "clangd", "gopls", "lua_ls", "ruff" })
+vim.keymap.set("n", "<leader>vpu", function()
+        vim.pack.update()
+    end,
+    { desc = "Update all packages" })
