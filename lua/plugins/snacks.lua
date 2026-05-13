@@ -8,6 +8,7 @@ Snacks.setup({
     -- refer to the configuration section below
     bigfile = { enabled = true },
     explorer = { enabled = true },
+    image = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     picker = {
