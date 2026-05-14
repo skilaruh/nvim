@@ -45,6 +45,36 @@ vim.cmd.colorscheme('vague')
 -- Vim Core UI 2 Enable
 require("vim._core.ui2").enable({})
 
+-- Code Runner
+local group = vim.api.nvim_create_augroup("CodeRunner", { clear = true })
+
+local runners = {
+    c = "clang -pedantic-errors -Wall -Wextra -std=c23 -o %:t:r %:t && ./%:t:r",
+    cpp = "clang++ -pedantic-errors -Wall -Wextra -std=c++23 -o %:t:r %:t && ./%:t:r",
+    lua = "lua %:t",
+    python = "python3 %:t",
+    sh = "bash %:t",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = vim.tbl_keys(runners),
+    callback = function(args)
+        vim.keymap.set("n", "<leader>R", function()
+            local cmd = runners[vim.bo[args.buf].filetype]
+
+            vim.cmd.write()
+            vim.cmd("botright 10split")
+            vim.cmd("terminal cd %:p:h && " .. cmd)
+            vim.cmd.startinsert()
+        end, {
+            buffer = args.buf,
+            desc = "Run Current File",
+            silent = true,
+        })
+    end,
+})
+
 --- Keybinds
 vim.keymap.set("n", "<leader>nr", "<cmd>restart<cr>", {
     desc = "Restart Neovim (:restart)",
