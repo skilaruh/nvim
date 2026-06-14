@@ -129,6 +129,7 @@ vim.keymap.set("n", "<leader>nr", "<cmd>restart<cr>", {
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
 vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous Buffer" })
+
 vim.keymap.set("n", "<leader>vpu", function()
         vim.pack.update()
     end,
