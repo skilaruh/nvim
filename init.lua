@@ -45,6 +45,53 @@ vim.cmd.colorscheme('vague')
 -- Vim Core UI 2 Enable
 require("vim._core.ui2").enable({})
 
+-- Togglable Terminal
+local term = {
+    buf = nil,
+    win = nil,
+}
+
+local function terminal_job_running(buf)
+    if not buf or not vim.api.nvim_buf_is_valid(buf) then
+        return false
+    end
+
+    local ok, job_id = pcall(function()
+        return vim.b[buf].terminal_job_id
+    end)
+
+    if not ok or not job_id then
+        return false
+    end
+
+    return vim.fn.jobwait({ job_id }, 0)[1] == -1
+end
+
+local function toggle_terminal()
+    -- If terminal window is open, close only the window.
+    -- The terminal buffer/process stays alive.
+    if term.win and vim.api.nvim_win_is_valid(term.win) then
+        vim.api.nvim_win_close(term.win, true)
+        term.win = nil
+        return
+    end
+
+    -- Open bottom split
+    vim.cmd("botright 10split")
+    term.win = vim.api.nvim_get_current_win()
+
+    -- Reuse existing terminal buffer if its job is still running
+    if terminal_job_running(term.buf) then
+        vim.api.nvim_win_set_buf(term.win, term.buf)
+    else
+        vim.cmd("terminal")
+        term.buf = vim.api.nvim_get_current_buf()
+        vim.bo[term.buf].buflisted = false
+    end
+
+    vim.cmd("startinsert")
+end
+
 -- Code Runner
 local group = vim.api.nvim_create_augroup("CodeRunner", { clear = true })
 
@@ -86,3 +133,16 @@ vim.keymap.set("n", "<leader>vpu", function()
         vim.pack.update()
     end,
     { desc = "Update all packages" })
+
+vim.keymap.set("n", "<leader>t", toggle_terminal, {
+    desc = "Toggle Terminal",
+    silent = true,
+})
+
+vim.keymap.set("t", "<leader>t", function()
+    vim.cmd.stopinsert()
+    toggle_terminal()
+end, {
+    desc = "Toggle Terminal",
+    silent = true,
+})
