@@ -5,19 +5,19 @@
       "src": "https://github.com/arborist-ts/arborist.nvim"
     },
     "blink.cmp": {
-      "rev": "35e3923a09ff3db150ceff80004befcbbfa071a0",
+      "rev": "13e7b50e7ba73ce781459da68d346925adfdb530",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "f29d8bac6549bc1e7d699c83f680823d7def98bd",
+      "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
       "src": "https://github.com/saghen/blink.lib"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
-      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "nvim-autopairs": {
@@ -25,19 +25,19 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "dfbada1a311c4bf3369f8d5421369c9b6e8b888f",
+      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-web-devicons": {
-      "rev": "0d7d35fa946837b8738b17c18d1faa1ac351e7f9",
+      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "snacks.nvim": {
-      "rev": "0770753c88228f7f15449c6a5b242e3f7cd0d71c",
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "vague.nvim": {
-      "rev": "fd58046b9d64259d9785e4aeb6d6f494c6943cad",
+      "rev": "49fe06ad33d8847b931ba4279197bda222374cd1",
       "src": "https://github.com/vague-theme/vague.nvim"
     },
     "which-key.nvim": {
