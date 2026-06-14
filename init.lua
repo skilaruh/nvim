@@ -96,8 +96,8 @@ end
 local group = vim.api.nvim_create_augroup("CodeRunner", { clear = true })
 
 local runners = {
-    c = "clang -pedantic-errors -Wall -Wextra -std=c23 -o %:t:r %:t && ./%:t:r",
-    cpp = "clang++ -pedantic-errors -Wall -Wextra -std=c++23 -o %:t:r %:t && ./%:t:r",
+    c = "clang -pedantic -Wall -Wextra -std=c23 -o %:t:r %:t && ./%:t:r",
+    cpp = "clang++ -pedantic -Wall -Wextra -std=c++23 -o %:t:r %:t && ./%:t:r",
     lua = "lua %:t",
     python = "python3 %:t",
     sh = "bash %:t",
