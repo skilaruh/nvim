@@ -135,12 +135,12 @@ vim.keymap.set("n", "<leader>vpu", function()
     end,
     { desc = "Update all packages" })
 
-vim.keymap.set("n", "<leader>t", toggle_terminal, {
+vim.keymap.set("n", "<C-`>", toggle_terminal, {
     desc = "Toggle Terminal",
     silent = true,
 })
 
-vim.keymap.set("t", "<leader>t", function()
+vim.keymap.set("t", "<C-`>", function()
     vim.cmd.stopinsert()
     toggle_terminal()
 end, {
