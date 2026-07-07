@@ -24,7 +24,7 @@ vim.o.backup = false
 vim.o.cursorline = true
 vim.o.termguicolors = true
 
-vim.o.colorcolumn = "80"
+-- vim.o.colorcolumn = "80"
 
 vim.o.scrolloff = 8
 
