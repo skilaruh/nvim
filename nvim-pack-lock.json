@@ -5,7 +5,7 @@
       "src": "https://github.com/arborist-ts/arborist.nvim"
     },
     "blink.cmp": {
-      "rev": "db8ea0b7c7ab8c8f8faa3912833c1671381e6304",
+      "rev": "0f54bd78892f587db4dcf100a23eaddfc2a9df7d",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/saghen/blink.lib"
     },
     "gitsigns.nvim": {
-      "rev": "eb60cc7b94c46005237fd34170d76f3a089a90aa",
+      "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
@@ -25,11 +25,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1",
+      "rev": "b386c50cd7816f8c8a2b13b298a218af1f5a75c6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-web-devicons": {
-      "rev": "09d1324e264c6950262dbe02a9bce2933a6800db",
+      "rev": "0ca28b61a04fe7426cefbdd52c2647ef0e335b5f",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "snacks.nvim": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/folke/snacks.nvim"
     },
     "vague.nvim": {
-      "rev": "49fe06ad33d8847b931ba4279197bda222374cd1",
+      "rev": "161384e625e7b6cca118a3fa66225ba5cacdfb50",
       "src": "https://github.com/vague-theme/vague.nvim"
     },
     "which-key.nvim": {
