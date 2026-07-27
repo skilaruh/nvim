@@ -3,6 +3,6 @@ local lualine = require("lualine")
 lualine.setup({
     options = {
         icons_enabled = true,
-        theme = "16color",
+        theme = "base16",
         }
 })
