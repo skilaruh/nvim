@@ -29,6 +29,7 @@ treesitter.install({
     "markdown_inline",
     "python",
     "r",
+    "regex",
     "requirements",
     "rust",
     "sql",
