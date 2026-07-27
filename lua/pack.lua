@@ -10,6 +10,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp" },
     { src = "https://github.com/mfussenegger/nvim-dap" },
     { src = "https://github.com/jay-babu/mason-nvim-dap.nvim" },
+    { src = "https://github.com/nvim-neotest/nvim-nio" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/folke/snacks.nvim" },
