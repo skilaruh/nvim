@@ -7,4 +7,3 @@ mason_lsp.setup({
         "ruff",
     },
 })
-
