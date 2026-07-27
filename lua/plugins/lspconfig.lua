@@ -29,6 +29,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-
--- Loading Servers
-vim.lsp.enable({ "clangd", "lua_ls", "ruff" })
