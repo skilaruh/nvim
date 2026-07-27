@@ -2,7 +2,7 @@ vim.pack.add({
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/folke/which-key.nvim" },
     { src = "https://github.com/vague-theme/vague.nvim" },
-    { src = "https://github.com/arborist-ts/arborist.nvim" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter"},
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/saghen/blink.lib" },
     { src = "https://github.com/saghen/blink.cmp" },
@@ -17,7 +17,7 @@ vim.pack.add({
 -- Loading plugin configs
 require("plugins.autopairs")
 require("plugins.which_key")
-require("plugins.arborist")
+require("plugins.treesitter")
 require("plugins.lspconfig")
 require("plugins.blink")
 require("plugins.snacks")
