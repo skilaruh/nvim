@@ -9,7 +9,12 @@ Snacks.setup({
     bigfile = { enabled = true },
     explorer = { enabled = true },
     image = { enabled = true },
-    indent = { enabled = true },
+    indent = {
+        enabled = true,
+        animate = {
+            enabled = false,
+        }
+    },
     input = { enabled = true },
     picker = {
         enabled = true,
