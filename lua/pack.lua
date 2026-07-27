@@ -19,6 +19,8 @@ vim.pack.add({
 -- Loading plugin configs
 require("plugins.autopairs")
 require("plugins.which_key")
+require("plugins.mason")
+require("plugins.mason-lsp")
 require("plugins.treesitter")
 require("plugins.lspconfig")
 require("plugins.blink")
