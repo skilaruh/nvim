@@ -47,106 +47,78 @@ vim.cmd.colorscheme('vague')
 -- Vim Core UI 2 Enable
 require("vim._core.ui2").enable({})
 
--- Togglable Terminal
-local term = {
-    buf = nil,
-    win = nil,
-}
-
-local function terminal_job_running(buf)
-    if not buf or not vim.api.nvim_buf_is_valid(buf) then
-        return false
-    end
-
-    local ok, job_id = pcall(function()
-        return vim.b[buf].terminal_job_id
-    end)
-
-    if not ok or not job_id then
-        return false
-    end
-
-    return vim.fn.jobwait({ job_id }, 0)[1] == -1
-end
+-- Toggleable Terminal
+local term_buf
 
 local function toggle_terminal()
-    -- If terminal window is open, close only the window.
-    -- The terminal buffer/process stays alive.
-    if term.win and vim.api.nvim_win_is_valid(term.win) then
-        vim.api.nvim_win_close(term.win, true)
-        term.win = nil
-        return
+    if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            if vim.api.nvim_win_get_buf(win) == term_buf then
+                vim.api.nvim_win_close(win, true)
+                return
+            end
+        end
+
+        if vim.fn.jobwait({ vim.bo[term_buf].channel }, 0)[1] == -1 then
+            vim.cmd('botright 10split')
+            vim.api.nvim_win_set_buf(0, term_buf)
+            vim.cmd.startinsert()
+            return
+        end
+
+        vim.api.nvim_buf_delete(term_buf, { force = true })
     end
 
-    -- Open bottom split
-    vim.cmd("botright 10split")
-    term.win = vim.api.nvim_get_current_win()
-
-    -- Reuse existing terminal buffer if its job is still running
-    if terminal_job_running(term.buf) then
-        vim.api.nvim_win_set_buf(term.win, term.buf)
-    else
-        vim.cmd("terminal")
-        term.buf = vim.api.nvim_get_current_buf()
-        vim.bo[term.buf].buflisted = false
-    end
-
-    vim.cmd("startinsert")
+    vim.cmd('botright 10new')
+    vim.cmd.terminal()
+    term_buf = vim.api.nvim_get_current_buf()
+    vim.bo.buflisted = false
+    vim.cmd.startinsert()
 end
 
 -- Code Runner
-local group = vim.api.nvim_create_augroup("CodeRunner", { clear = true })
-
 local runners = {
-    c = "clang -pedantic -Wall -Wextra -std=c23 -o %:t:r %:t && ./%:t:r",
-    cpp = "clang++ -pedantic -Wall -Wextra -std=c++23 -o %:t:r %:t && ./%:t:r",
-    lua = "lua %:t",
-    python = "python3 %:t",
-    sh = "bash %:t",
+    c = 'clang -pedantic -Wall -Wextra -std=c23 %s -o %s && %s',
+    cpp = 'clang++ -pedantic -Wall -Wextra -std=c++23 %s -o %s && %s',
+    lua = 'lua %s',
+    python = 'python3 %s',
+    sh = 'bash %s',
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-    group = group,
-    pattern = vim.tbl_keys(runners),
-    callback = function(args)
-        vim.keymap.set("n", "<leader>R", function()
-            local cmd = runners[vim.bo[args.buf].filetype]
+local function run_code()
+    local runner = runners[vim.bo.filetype]
+    if not runner or vim.bo.buftype ~= '' or vim.fn.expand('%') == '' then
+        return
+    end
 
-            vim.cmd.write()
-            vim.cmd("botright 10split")
-            vim.cmd("terminal cd %:p:h && " .. cmd)
-            vim.cmd.startinsert()
-        end, {
-            buffer = args.buf,
-            desc = "Run Current File",
-            silent = true,
-        })
-    end,
-})
+    vim.cmd.update()
 
---- Keybinds
-vim.keymap.set("n", "<leader>nr", "<cmd>restart<cr>", {
-    desc = "Restart Neovim (:restart)",
-})
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format Buffer" })
-vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous Buffer" })
+    local file = vim.fn.expand('%:p:S')
+    local output = vim.fn.expand('%:p:r:S')
+    local cwd = vim.fn.expand('%:p:h')
 
-vim.keymap.set("n", "<leader>vpu", function()
-        vim.pack.update()
-    end,
-    { desc = "Update all packages" })
+    vim.cmd('botright 10new')
+    vim.fn.jobstart(runner:format(file, output, output), {
+        cwd = cwd,
+        term = true,
+    })
 
-vim.keymap.set("n", "<C-`>", toggle_terminal, {
-    desc = "Toggle Terminal",
-    silent = true,
-})
+    vim.bo.buflisted = false
+    vim.bo.bufhidden = 'wipe'
+    vim.cmd.startinsert()
+end
 
-vim.keymap.set("t", "<C-`>", function()
+-- Keymaps
+vim.keymap.set('n', '<leader>nr', '<cmd>restart<cr>', { desc = 'Restart Neovim' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: Code Action' })
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, { desc = 'LSP: Format Buffer' })
+vim.keymap.set('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '<leader>vpu', vim.pack.update, { desc = 'Update All Packages' })
+vim.keymap.set('n', '<leader>R', run_code, { desc = 'Run Current File' })
+vim.keymap.set('n', '<C-`>', toggle_terminal, { desc = 'Toggle Terminal' })
+
+vim.keymap.set('t', '<C-`>', function()
     vim.cmd.stopinsert()
     toggle_terminal()
-end, {
-    desc = "Toggle Terminal",
-    silent = true,
-})
+end, { desc = 'Toggle Terminal' })
